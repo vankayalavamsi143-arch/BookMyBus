@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Booking Confirmation - BookMyBus</title>
+  <link rel="stylesheet" href="css/booking.css" />
+</head>
+
+<body>
+
+  <div class="confirmation-container" id="ticket">
+    <div class="top-bar">
+      <img src="./assets/BookMyBus logo.png" alt="BookMyBus Logo" class="logo" />
+      <h2>🎉 Booking Confirmed</h2>
+    </div>
+
+    <div class="ticket-form">
+      <label>Name</label>
+      <input type="text" id="name" placeholder="Enter your name" required />
+
+      <label>Email</label>
+      <input type="email" id="email" placeholder="Enter your email" required />
+
+      <label>Phone</label>
+      <input type="tel" id="phone" placeholder="Enter your phone number" required />
+    </div>
+
+    <div class="ticket-card">
+      <h3>🚌 Trip Summary</h3>
+      <p>Seats: <span id="seats">--</span></p>
+      <p>Total Fare: ₹<span id="amount">--</span></p>
+    </div>
+
+    <div class="buttons">
+      <button onclick="goToPayment()">💳 Proceed to Payment</button>
+    </div>
+  </div>
+
+  <script>
+    const seats = JSON.parse(localStorage.getItem("selectedSeats")) || [];
+    const fare = localStorage.getItem("totalFare") || 0;
+
+    // Display selected seats and amount
+    document.getElementById("seats").textContent = seats.join(", ");
+    document.getElementById("amount").textContent = fare;
+
+    function goToPayment() {
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const phone = document.getElementById("phone").value.trim();
+
+      if (!name || !email || !phone) {
+        alert("Please fill in all details before proceeding.");
+        return;
+      }
+
+      // Store passenger details
+      localStorage.setItem("passengerName", name);
+      localStorage.setItem("passengerEmail", email);
+      localStorage.setItem("passengerPhone", phone);
+
+      // Redirect to payment
+      window.location.href = "payment.html";
+    }
+  </script>
+
+</body>
+
+</html>

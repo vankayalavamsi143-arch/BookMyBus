@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Booking Successful - BookMyBus</title>
+  <link rel="stylesheet" href="css/success.css" />
+</head>
+<body>
+
+  <div class="success-container">
+    <img src="./assets/BookMyBus logo.png" alt="BookMyBus Logo" class="logo" />
+
+    <div class="success-box">
+      <h1>🎉 Booking Confirmed!</h1>
+      <p>Thank you for choosing <strong>BookMyBus</strong>.</p>
+      <p>Your ticket has been booked successfully.</p>
+
+      <div class="ticket-summary">
+        <p><strong>Name:</strong> <span id="name"></span></p>
+        <p><strong>Email:</strong> <span id="email"></span></p>
+        <p><strong>Phone:</strong> <span id="phone"></span></p>
+        <p><strong>Seats:</strong> <span id="seats"></span></p>
+        <p><strong>Total Fare:</strong> ₹<span id="fare"></span></p>
+      </div>
+
+      <a href="index.html" class="btn">Go to Home</a>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("name").textContent = localStorage.getItem("passengerName") || "-";
+    document.getElementById("email").textContent = localStorage.getItem("passengerEmail") || "-";
+    document.getElementById("phone").textContent = localStorage.getItem("passengerPhone") || "-";
+    document.getElementById("seats").textContent = JSON.parse(localStorage.getItem("selectedSeats"))?.join(", ") || "-";
+    document.getElementById("fare").textContent = localStorage.getItem("totalFare") || "0";
+  </script>
+
+</body>
+</html>

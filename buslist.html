@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Available Buses - BookMyBus</title>
+  <link rel="stylesheet" href="css/buslist.css" />
+  <script src="https://kit.fontawesome.com/9aca14c5c9.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <div class="overlay">
+    <div class="buslist-container">
+      <div class="header">
+        <h2>Available Buses</h2>
+        <p id="route-subheading">Loading...</p>
+      </div>
+
+      <div class="content">
+        <!-- Filter Section -->
+        <div class="filter-box">
+          <h3>Filter buses</h3>
+          <div class="filter-option" data-filter="AC"><i class="fas fa-snowflake"></i> AC</div>
+          <div class="filter-option" data-filter="SLEEPER"><i class="fas fa-bed"></i> SLEEPER</div>
+          <div class="filter-option" data-filter="SINGLE"><i class="fas fa-chair"></i> Single Seats</div>
+          <div class="filter-option" data-filter="SEATER"><i class="fas fa-th-large"></i> SEATER</div>
+          <div class="filter-option" data-filter="NONAC"><i class="fas fa-wind"></i> NON-AC</div>
+          <div class="filter-option" data-filter="EVENING"><i class="fas fa-clock"></i> 18:00–24:00</div>
+          <div class="filter-option" data-filter="HIGH_RATED"><i class="fas fa-star"></i> High Rated</div>
+          <div class="filter-option" data-filter="TRACKING"><i class="fas fa-map-marker-alt"></i> Live Tracking</div>
+        </div>
+
+        <!-- Bus List Section -->
+        <div class="buslist" id="busCardsContainer">
+          <!-- Bus cards will be inserted here -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const busData = [
+      { name: "SRS Travels", type: "AC Sleeper", departure: "06:00 AM", arrival: "10:30 AM", price: 450, rating: 4.6, tracking: true },
+      { name: "KPN Travels", type: "Non-AC Seater", departure: "07:30 AM", arrival: "11:45 AM", price: 420, rating: 4.1, tracking: false },
+      { name: "Orange Tours", type: "AC Sleeper", departure: "09:00 AM", arrival: "01:15 PM", price: 490, rating: 4.7, tracking: true },
+      { name: "YBM Travels", type: "AC Sleeper", departure: "10:15 AM", arrival: "02:30 PM", price: 510, rating: 4.3, tracking: true },
+      { name: "Parveen Travels", type: "Non-AC Sleeper", departure: "11:45 AM", arrival: "04:00 PM", price: 440, rating: 4.2, tracking: false },
+      { name: "ABT Express", type: "AC Seater", departure: "01:00 PM", arrival: "05:15 PM", price: 470, rating: 4.8, tracking: true },
+      { name: "Vivegam Travels", type: "AC Sleeper", departure: "02:30 PM", arrival: "06:45 PM", price: 499, rating: 4.5, tracking: false },
+      { name: "Krish Travels", type: "AC Sleeper", departure: "04:00 PM", arrival: "08:15 PM", price: 540, rating: 4.9, tracking: true },
+      { name: "Kallada Travels", type: "AC Seater", departure: "05:15 PM", arrival: "09:30 PM", price: 460, rating: 4.0, tracking: false },
+      { name: "Arthi Travels", type: "Non-AC Sleeper", departure: "06:30 PM", arrival: "10:45 PM", price: 430, rating: 4.6, tracking: true },
+      { name: "National Travels", type: "AC Sleeper", departure: "08:00 PM", arrival: "12:30 AM", price: 550, rating: 4.7, tracking: true },
+      { name: "Greenline Travels", type: "AC Seater", departure: "09:30 PM", arrival: "01:45 AM", price: 480, rating: 4.2, tracking: false },
+    ];
+
+    const from = new URLSearchParams(window.location.search).get("from") || "Chennai";
+    const to = new URLSearchParams(window.location.search).get("to") || "Bangalore";
+    const date = new URLSearchParams(window.location.search).get("date") || new Date().toISOString().split('T')[0];
+
+    document.getElementById("route-subheading").textContent = `Showing buses from ${from} to ${to} on ${date}`;
+
+    const container = document.getElementById("busCardsContainer");
+
+    function goToSeatSelection(bus) {
+      localStorage.setItem("selectedBus", JSON.stringify(bus));
+      window.location.href = "seat.html";
+    }
+
+    function renderBuses(data) {
+      container.innerHTML = "";
+      if (data.length === 0) {
+        container.innerHTML = `<p style="padding: 20px;">No buses found with selected filters.</p>`;
+        return;
+      }
+
+      data.forEach(bus => {
+        const card = document.createElement("div");
+        card.className = "bus-card";
+        card.innerHTML = `
+          <div class="bus-info">
+            <h3>${bus.name}</h3>
+            <p><i class="fa-solid fa-bus"></i> ${bus.type}</p>
+            <p><i class="fa-regular fa-clock"></i> ${bus.departure} → ${bus.arrival}</p>
+          </div>
+          <div class="bus-actions">
+            <h4>₹${bus.price}</h4>
+            <button onclick='goToSeatSelection(${JSON.stringify(bus)})'>View Seats</button>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function filterBuses() {
+      const selectedFilters = Array.from(document.querySelectorAll(".filter-option.active"))
+        .map(el => el.dataset.filter.toLowerCase());
+
+      if (selectedFilters.length === 0) {
+        renderBuses(busData);
+        return;
+      }
+
+      const filtered = busData.filter(bus => {
+        const type = bus.type.toLowerCase();
+        const timeStr = bus.departure;
+        const hour = parseInt(timeStr.split(":")[0]);
+        const meridian = timeStr.split(" ")[1];
+        const time24 = meridian === "PM" && hour !== 12 ? hour + 12 : meridian === "AM" && hour === 12 ? 0 : hour;
+
+        return selectedFilters.some(filter => {
+          if (filter === "evening") return time24 >= 18 && time24 <= 23;
+          if (filter === "high_rated") return bus.rating >= 4.5;
+          if (filter === "tracking") return bus.tracking === true;
+          return type.includes(filter.toLowerCase());
+        });
+      });
+
+      renderBuses(filtered);
+    }
+
+    // Event Listeners
+    document.querySelectorAll(".filter-option").forEach(option => {
+      option.addEventListener("click", () => {
+        option.classList.toggle("active");
+        filterBuses();
+      });
+    });
+
+    // Initial render
+    renderBuses(busData);
+  </script>
+</body>
+</html>
