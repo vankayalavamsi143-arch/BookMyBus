@@ -1,0 +1,116 @@
+/* Body Background */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #020617, #0f172a);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* Login Box */
+.login-box {
+  background: rgba(255, 255, 255, 0.08); /* glass */
+  padding: 40px 30px;
+  border-radius: 16px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+  max-width: 400px;
+  margin: auto;
+  backdrop-filter: blur(12px);
+}
+
+.login-box h2 {
+  text-align: center;
+  color: #f1f5f9;
+  margin-bottom: 30px;
+}
+
+.login-box h2 span {
+  color: #818cf8; /* indigo */
+}
+
+/* Input Group */
+.input-group label {
+  color: #cbd5f5;
+}
+
+.input-group i {
+  color: #818cf8;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 12px 14px;
+  font-size: 15px;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 8px;
+  outline: none;
+  background: rgba(255,255,255,0.08);
+  color: #ffffff;
+  transition: 0.3s;
+}
+
+.input-group input:focus {
+  border-color: #818cf8;
+  background: rgba(255,255,255,0.12);
+  box-shadow: 0 0 8px rgba(129, 140, 248, 0.5);
+}
+
+/* Password Icon */
+#togglePassword {
+  color: #94a3b8;
+}
+
+/* Submit Button */
+button[type="submit"] {
+  width: 100%;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: #fff;
+  padding: 14px;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+button[type="submit"]:hover {
+  background: linear-gradient(135deg, #4f46e5, #7c3aed);
+  transform: translateY(-2px);
+}
+
+/* Sign-up Link */
+.signup-link {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 14px;
+  color: #94a3b8;
+}
+
+.signup-link a {
+  color: #a5b4fc;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.signup-link a:hover {
+  text-decoration: underline;
+}
+
+/* Google Button */
+.google-login button {
+  background-color: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: #e2e8f0;
+  border-radius: 25px;
+}
+
+.google-login button:hover {
+  background-color: rgba(255,255,255,0.12);
+}
+
+.google-login i.fa-google {
+  color: #db4437; /* keep brand color */
+}

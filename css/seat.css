@@ -1,0 +1,187 @@
+/* Body */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: linear-gradient(135deg, #020617, #0f172a);
+  color: #e2e8f0;
+}
+
+/* Container */
+.seat-container {
+  max-width: 1000px;
+  margin: auto;
+  padding: 20px;
+}
+
+/* Top Bar */
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.driver-box {
+  font-size: 18px;
+  background: rgba(99, 102, 241, 0.15);
+  padding: 8px 14px;
+  border-radius: 8px;
+  color: #a5b4fc;
+}
+
+/* Deck Card */
+.deck-card {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255,255,255,0.1);
+  margin: 20px 0;
+  padding: 20px;
+  border-radius: 14px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+  backdrop-filter: blur(12px);
+}
+
+.deck-title {
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-align: center;
+  font-size: 18px;
+  color: #f1f5f9;
+}
+
+/* Seat Rows */
+.row {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+/* Seats */
+.seat, .berth {
+  width: 50px;
+  height: 50px;
+  background: rgba(255,255,255,0.08);
+  margin: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  position: relative;
+  transition: all 0.25s ease;
+  color: #cbd5f5;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+/* Hover */
+.seat:hover, .berth:hover {
+  background: rgba(99, 102, 241, 0.2);
+}
+
+/* Tooltip */
+.seat:hover::after, .berth:hover::after {
+  content: attr(data-seat);
+  position: absolute;
+  bottom: -25px;
+  background: #020617;
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+/* Selected */
+.seat.selected, .berth.selected {
+  background: #4ade80; /* green */
+  color: #022c22;
+  transform: scale(1.08);
+}
+
+/* Booked */
+.seat.booked, .berth.booked {
+  background: #475569;
+  color: #e2e8f0;
+  cursor: not-allowed;
+}
+
+/* Deck Layout */
+.lower-deck, .upper-deck {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+/* Deck Colors */
+.lower-deck {
+  background: rgba(99, 102, 241, 0.08);
+  padding: 12px;
+  border-radius: 12px;
+}
+
+.upper-deck {
+  background: rgba(139, 92, 246, 0.08);
+  padding: 12px;
+  border-radius: 12px;
+}
+
+/* Selected Info */
+.selected-info {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 16px;
+  color: #cbd5f5;
+}
+
+/* Button */
+button {
+  padding: 10px 22px;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  border: none;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+button:hover {
+  background: linear-gradient(135deg, #4f46e5, #7c3aed);
+  transform: translateY(-2px);
+}
+
+/* Mobile */
+@media screen and (max-width: 768px) {
+  .lower-deck, .upper-deck {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .left-berth {
+    order: 2;
+    width: 50%;
+  }
+
+  .right-seat {
+    order: 1;
+    width: 50%;
+  }
+
+  .left-upper-berth {
+    order: 2;
+    width: 50%;
+  }
+
+  .right-upper-berth {
+    order: 1;
+    width: 50%;
+  }
+
+  .seat, .berth {
+    width: 45px;
+    height: 45px;
+  }
+
+  .seat:hover::after, .berth:hover::after {
+    bottom: auto;
+    top: 55px;
+  }
+}

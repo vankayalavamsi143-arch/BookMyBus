@@ -1,0 +1,89 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  background: linear-gradient(135deg, #020617, #0f172a);
+  color: #e2e8f0;
+}
+
+/* Container */
+.success-container {
+  max-width: 600px;
+  margin: 40px auto;
+  background: rgba(255, 255, 255, 0.08); /* glass */
+  border-radius: 16px;
+  padding: 28px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(12px);
+}
+
+/* Header */
+.top-bar {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.top-bar img.logo {
+  width: 130px;
+  margin-bottom: 10px;
+}
+
+.top-bar h2 {
+  color: #4ade80; /* success green */
+  margin: 10px 0;
+  font-size: 26px;
+}
+
+/* Ticket Card */
+.ticket-card {
+  background: rgba(74, 222, 128, 0.1); /* green tint */
+  padding: 20px;
+  border-radius: 12px;
+  border-left: 5px solid #4ade80;
+}
+
+.ticket-card p {
+  margin: 10px 0;
+  font-size: 16px;
+  color: #cbd5f5;
+}
+
+.ticket-card span {
+  font-weight: 600;
+  color: #ffffff;
+}
+
+/* Buttons */
+.buttons {
+  text-align: center;
+  margin-top: 25px;
+}
+
+.buttons button {
+  background: linear-gradient(135deg, #6366f1, #8b5cf6); /* indigo */
+  color: #fff;
+  border: none;
+  padding: 12px 22px;
+  margin: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+  transition: all 0.3s ease;
+}
+
+.buttons button:hover {
+  background: linear-gradient(135deg, #4f46e5, #7c3aed);
+  transform: translateY(-2px);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .success-container {
+    margin: 20px;
+    padding: 20px;
+  }
+
+  .buttons button {
+    width: 100%;
+    margin: 10px 0;
+  }
+}
